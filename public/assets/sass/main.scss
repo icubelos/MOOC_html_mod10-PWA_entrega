@@ -1,0 +1,419 @@
+@import "lib/vars";
+@import "lib/reboot";
+@import "lib/keyframes";
+@import "lib/fontface";
+@import "lib/colors";
+@import "lib/typo";
+@import "lib/utils";
+@import "lib/buttons";
+
+
+
+
+html,
+body {
+    background-color: #eee;
+}
+
+/*
+ * Estilos para el layout general
+ *
+ * Si quieres aprender más sobre SCSS: 
+ * https://www.youtube.com/playlist?list=PLn4HfBF-ETRsrE-AUpp2c4LpoNsK15X0d
+ * y en 45 minutos eres experto/a en SCSS
+ *
+ */
+// La maquetación más general te la damos hecha para que no sea un ejercicio muy largo
+// Recuerda que puedes cambiar lo que quieras.
+// hemos puesto algunas pistas en el código que te pueden ayudar...
+// Mucha suerte!!
+
+.layout {
+    height: 100vh;
+    width: 100vw;
+    max-width: 500px;
+    overflow: auto;
+    background-color: #fff;
+    box-shadow: 0 0 86px rgba(0, 0, 0, .15);
+
+    &.home {
+        display: grid;
+        grid-template-rows: auto 1fr auto auto;
+        grid-template-columns: 100%;
+        padding: 5rem 0;
+
+        header {
+            grid-area: 1 / 1 / span 1 / -1;
+        }
+
+        main {
+            grid-area: 2 / 1 / span 1 / -1;
+        }
+
+        .main_navigation {
+            grid-area: 3 / 1 / span 1 / -1;
+        }
+
+        .secondary_navigation {
+            grid-area: 4 / 1 / span 1 / -1;
+        }
+    }
+
+    &.single_page {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        grid-template-columns: 100%;
+
+        header {
+            grid-area: 1 / 1 / span 1 / -1;
+        }
+
+        main {
+            grid-area: 2 / 1 / span 1 / -1;
+        }
+
+        footer {
+            grid-area: 3 / 1 / span 1 / -1;
+        }
+    }
+
+    &.game {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 100%;
+
+        .ui {
+            grid-area: 1 / 1 / span 1 / -1;
+        }
+
+        .game_container {
+            grid-area: 2 / 1 / span 1 / -1;
+        }
+
+        .modal_window {
+            grid-area: 1 / 1 / -1 / -1;
+        }
+    }
+
+
+    @media screen and (min-width: 500px) {
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 2rem auto;
+        height: calc(100vh - 4rem);
+    }
+}
+
+
+/*
+ *
+ * Estilos para la página home
+ *
+ */
+.home {
+
+    header {
+        margin: 0rem auto 2rem auto;
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            text-align: center;
+            color: rgb(82, 80, 80);
+        }
+    }
+
+    main {
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .slider {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .main_navigation {
+        text-align: center;
+        margin-top: 2rem;
+
+    }
+
+    .secondary_navigation {
+        text-align: center;
+        margin-top: 1rem;
+    }
+}
+
+/*
+ *
+ * Estilos para la página highscores
+ *
+ */
+.single_page {
+
+    padding: 2rem 1rem;
+    
+    header {
+        color: map-get($themes,"grey");
+        h2 {
+            display: flex;
+            gap: .5rem;
+            justify-content: center;
+            color: map-get($themes,"gray");
+            margin-top: 1rem;
+            .icon {}
+
+            .label {}
+               
+        }
+    }
+
+    main {
+        section {
+
+            h3 {
+                margin-top: 2rem;
+            }
+
+            .big_scores {
+                position: relative; // swiper lo va a necesitar... ;)
+                .big_score {
+                    font-size: 3rem;
+                    line-height: 3rem;
+                    text-align: center;
+                    font-weight: bold;
+                    color: darken(map-get($themes, "color_1"),30);
+                    padding: 2rem 1rem;
+                    
+                }
+            }
+
+            .swiper-pagination-bullet-active {
+                // swiper lo va a necesitar... ;)
+                background-color: darken(map-get($themes, "color_1"),30);
+            }
+
+            .leaderboard_items {
+                .leaderboard_item {
+                    // opacity: 0; // animejs lo va a necesitar
+                    display: flex;
+                    margin-bottom: 1.1rem;
+                    .number {
+                        margin-right: 1rem;
+                    }
+
+                    .date {
+                        margin-right: auto;
+                    }
+
+                    .score {}
+
+                    &:first-child {
+                        color: darken(map-get($themes, "color_1"),30);
+                        font-weight: bolder;
+                    }
+                }
+            }
+        }
+    }
+
+    footer {
+       display: flex;
+       justify-content: center;
+       margin-bottom: 1rem;
+    }
+}
+
+
+/*
+ * Botones
+ */
+
+ 
+.btn {
+    @include btn("primary");
+}
+
+.secondary_navigation_item {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+
+    &:hover,
+    &:visited,
+    &:link {
+        color: inherit;
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: map-get($themes, "grayLight");
+        color: map-get($themes, "gray");
+        margin-bottom: .5rem;
+    }
+
+    .label {}
+}
+
+.game {
+    .ui {
+        height: 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0.5rem;
+        background-color: white;
+       
+        .lifes,
+        .score {
+            .amount {}
+
+            .icon {}
+        }
+
+        .pause {
+            button{
+                background-color: map-get($themes, "grayLight" );
+                border-style: none;
+
+                &:hover,
+                &:focus{
+                    box-shadow: 0 0 0 3px rgba(70, 66, 68, 0.3);
+                    transition: all 200ms ease;
+                }
+            }
+        }
+    }
+
+
+    .game_container {
+        .game_holder { // te va a ayudar a que funcione el juego ok...
+            position: relative; 
+            height: 100%;
+            background-color: map-get($themes, "grayLight");
+           
+    }
+}
+
+    .modal_window {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+       
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background-color: rgba(0, 0, 0, .6);
+        }
+
+        .holder {
+            position: relative;
+            width: 80%;
+            z-index: 3;
+            background-color: #fff;
+
+            .message {
+                padding: 1rem 1rem 0rem 1rem;
+                font-weight: bolder;
+                font-size: 20px ;
+                
+            }
+
+            .cta {
+                padding: 0rem 1rem 1rem 1rem;
+                margin-top: 1rem;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 1rem;
+
+                .btn {
+                    //justify-content: center;
+                    
+                }
+                button{
+                    background-color: white;
+                    color: map-get($themes, "gray");
+
+                    &:hover,
+                    &:focus {
+                        box-shadow: 0 0 0 3px rgba(70, 66, 68, 0.3);
+                        transition: all 200ms ease;
+                        
+                    }
+                }
+            }
+        }
+
+        &.opened {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
+
+.slider { // una ayuda! :)
+    svg {
+        overflow: visible;
+
+        g.char_01 {
+            transform-origin: 20% 50%;
+        }
+
+        g.char_02 {
+            transform-origin: 50% 50%;
+        }
+
+        g.char_03 {
+            transform-origin: 80% 50%;
+        }
+
+        g.char {
+            transition: all 2350ms ease;
+
+            &:hover {
+                // animation: etc...
+                transform: rotate(0deg); // translateY(0px);
+                animation: move 2350ms ease backwards;
+                
+            }
+        }
+    }
+}
+
+@keyframes move {
+    0% {
+        transform: rotate(0deg);//translateY(0px);
+   }
+
+    15% {
+         transform: rotate(-270deg); // translateY(-10px);
+       
+    }
+    70% {
+        transform: rotate(2.9*360deg); // translateY(-40px);
+    }
+
+    100% {
+        transform: rotate(3*360deg);// translateY(0px); 
+    }
+}

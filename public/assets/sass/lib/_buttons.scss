@@ -1,0 +1,62 @@
+
+
+@mixin btn($type){
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: map-get($themes, "gray");
+    border-radius: 3px;
+    padding: 0.75rem 2rem 0.5rem;
+    text-transform: uppercase;
+    transition: all 200ms ease;
+    border: 1px solid #3b3b3b;
+    justify-content: center;
+    
+    
+    &.btn_link {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: white;
+        
+        color: #525252;
+    }
+
+    @if $type == "primary" {
+        &.btn_primary {
+             background-color: darken(map-get($themes, "color_1"),15%);
+            border: 1px solid #F2F2F2;
+            color:white;
+            &:hover,
+            &:focus {
+                background-color: darken(map-get($themes, "color_1"),25%);
+                box-shadow: 0 0 0 3px rgba(70, 66, 68, 0.3);
+                transition: all 200ms ease;
+            }
+        }
+    }
+    @else{
+        &:hover,
+        &:visited,
+        &:link {
+            color:map-get($themes, "gray");
+        }
+    
+        &:focus {
+            outline: 0;
+        }
+    
+        &:hover,
+        &:focus {
+            box-shadow: 0 0 0 3px rgba(70, 66, 68, 0.3);
+            transition: all 200ms ease;
+            
+        }
+    }
+
+ }
